@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  justify-content: center;   /* centra horizontal */
+  align-items: center;       /* centra vertical */
+  height: 100vh;             /* ocupa toda la pantalla */
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  color: #333; /* comentario */
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.formulario {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+} 
+
+.formulario {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.formulario.activo {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* DARK MODE */
+
+.container.dark {
+  background-color: #1e1e1e;
+}
+
+.container.dark .card {
+  background-color: #2c2c2c;
+  color: #f5f5f5;
+}
+
+.container.dark input,
+.container.dark textarea {
+  background-color: #3a3a3a;
+  color: white;
+  border: 1px solid #555;
+}
+
+.container.dark button {
+  background-color: #444;
+}
