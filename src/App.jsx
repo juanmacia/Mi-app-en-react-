@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import emailjs from "@emailjs/browser"
 import "./App.css"
 
 function App() {
@@ -32,29 +33,41 @@ function App() {
   }
 
   
-    const manejarEnvio = (e) => {
+   const manejarEnvio = (e) => {
   e.preventDefault()
-
-
 
   if (
     formData.nombre === "" ||
     formData.email === "" ||
     formData.mensaje === ""
   ) {
-    setError("por favor completa todos los campos")
+    setError("Por favor completa todos los campos")
     return
   }
+
   setError("")
-  console.log("Formulario enviado:", formData)
 
-  setEnviado(true)
-
-  setFormData({
-    nombre: "",
-    email: "",
-    mensaje: ""
-  
+  emailjs.send(
+    "service_dxmvioc",
+    "template_40eclkc",
+    {
+      nombre: formData.nombre,
+      email: formData.email,
+      mensaje: formData.mensaje
+    },
+    "ZUQ8dK-sL2cC2z8Gz"
+  )
+  .then(() => {
+    setEnviado(true)
+    setFormData({
+      nombre: "",
+      email: "",
+      mensaje: ""
+    })
+  })
+  .catch((error) => {
+    setError("Error al enviar el mensaje")
+    console.log(error)
   })
 } //
 return (
@@ -111,3 +124,4 @@ return (
 )
 } // 
 export default App //
+
