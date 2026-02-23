@@ -88,3 +88,11 @@ input, textarea {
 .container.dark button {
   background-color: #444;
 } 
+
+.dark .about p {
+  color: #ccc;
+}
+
+.dark .skills span {
+  background: #444;
+}

@@ -119,6 +119,21 @@ return (
 
       {enviado && <p>✅ Mensaje enviado</p>}
 
+      <section className="about">
+  <h2>Sobre mí</h2>
+  <p>
+    Soy estudiante y desarrollador en formación apasionado por la tecnología.
+    Actualmente estoy aprendiendo React, JavaScript y desarrollo web moderno.
+  </p>
+
+  <div className="skills">
+    <span>HTML</span>
+    <span>CSS</span>
+    <span>JavaScript</span>
+    <span>React</span>
+  </div>
+</section>
+
     </div>
   </div>
 )
