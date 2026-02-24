@@ -3,24 +3,22 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
 }
-
-.container {
+.app {
   display: flex;
-  justify-content: center;   /* centra horizontal */
-  align-items: center;       /* centra vertical */
-  height: 100vh;             /* ocupa toda la pantalla */
+  flex-direction: column;
+  justify-content: center; /* centra vertical */
+  align-items: center;     /* centra horizontal */
+  min-height: 100vh;
 }
-
 .card {
   background: white;
   padding: 30px;
   border-radius: 12px;
-  width: 350px;
+  width: 100%;
+  max-width: 420px;   /* 👈 importante */
   text-align: center;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  color: #333; /* comentario */
 }
-
 button {
   margin-top: 15px;
   padding: 10px 15px;
@@ -69,30 +67,39 @@ input, textarea {
 
 /* DARK MODE */
 
-.container.dark {
+.app.dark {
   background-color: #1e1e1e;
 }
-
-.container.dark .card {
+.app.dark .card {
   background-color: #2c2c2c;
   color: #f5f5f5;
 }
 
-.container.dark input,
-.container.dark textarea {
+.app.dark input,
+.app.dark textarea {
   background-color: #3a3a3a;
   color: white;
   border: 1px solid #555;
 }
 
-.container.dark button {
+.app.dark button {
   background-color: #444;
 } 
 
-.dark .about p {
+.app.dark .about p {
   color: #ccc;
 }
 
-.dark .skills span {
+.app.dark .skills span {
   background: #444;
+}
+.hero,
+.contact,
+.about {
+  width: 100%;
+}
+
+.card {
+  background: white;
+  color: #222;   /* 👈 AGREGA ESTO */
 }

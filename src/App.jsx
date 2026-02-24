@@ -4,6 +4,7 @@ import "./App.css"
 
 function App() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
 
   const [formData, setFormData] = useState({
     nombre: "",
@@ -13,17 +14,15 @@ function App() {
 
   const [enviado, setEnviado] = useState(false)
   const [error, setError] = useState("")
-  const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
-  if (enviado) {
-    const timer = setTimeout(() => {
-      setEnviado(false)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }
-}, [enviado])
+    if (enviado) {
+      const timer = setTimeout(() => {
+        setEnviado(false)
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [enviado])
 
   const manejarCambio = (e) => {
     setFormData({
@@ -32,111 +31,91 @@ function App() {
     })
   }
 
-  
-   const manejarEnvio = (e) => {
-  e.preventDefault()
+  const manejarEnvio = (e) => {
+    e.preventDefault()
 
-  if (
-    formData.nombre === "" ||
-    formData.email === "" ||
-    formData.mensaje === ""
-  ) {
-    setError("Por favor completa todos los campos")
-    return
+    if (!formData.nombre || !formData.email || !formData.mensaje) {
+      setError("Todos los campos son obligatorios")
+      return
+    }
+
+    setError("")
+
+    emailjs.send(
+      "service_dxmvioc",
+      "template_40eclkc",
+      formData,
+      "ZUQ8dK-sL2cC2z8Gz"
+    )
+    .then(() => {
+      setEnviado(true)
+      setFormData({ nombre: "", email: "", mensaje: "" })
+    })
+    .catch(() => {
+      setError("Error al enviar el mensaje")
+    })
   }
 
-  setError("")
+  return (
+    <div className={`app ${darkMode ? "dark" : ""}`}>
+      <div className="card">
 
-  emailjs.send(
-    "service_dxmvioc",
-    "template_40eclkc",
-    {
-      nombre: formData.nombre,
-      email: formData.email,
-      mensaje: formData.mensaje
-    },
-    "ZUQ8dK-sL2cC2z8Gz"
-  )
-  .then(() => {
-    setEnviado(true)
-    setFormData({
-      nombre: "",
-      email: "",
-      mensaje: ""
-    })
-  })
-  .catch((error) => {
-    setError("Error al enviar el mensaje")
-    console.log(error)
-  })
-} //
-return (
-  <div className={`container ${darkMode ? "dark" : ""}`}>
-    <div className="card">
+        <section className="hero">
+          <h1>Juan Macías</h1>
+          <p>Frontend Developer en formación</p>
 
-      <h1>Juan Macías</h1>
-      <p>Desarrollador en formación</p>
+          <button onClick={() => setMostrarFormulario(!mostrarFormulario)}>
+            Contactar
+          </button>
 
-      <button onClick={() => setMostrarFormulario(!mostrarFormulario)}>
-        Contactame
-      </button>
+          <button onClick={() => setDarkMode(!darkMode)}>
+            {darkMode ? "Light ☀️" : "Dark 🌙"}
+          </button>
+        </section>
 
-     <form
-  onSubmit={manejarEnvio}
-  className={`formulario ${mostrarFormulario ? "activo" : ""}`}
->
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Tu nombre"
-            value={formData.nombre}
-            onChange={manejarCambio}
-          />
+        <section className={`formulario ${mostrarFormulario ? "activo" : ""}`}>
+          <form onSubmit={manejarEnvio}>
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Nombre"
+              value={formData.nombre}
+              onChange={manejarCambio}
+            />
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Tu email"
-            value={formData.email}
-            onChange={manejarCambio}
-          />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={manejarCambio}
+            />
 
-          <textarea
-            name="mensaje"
-            placeholder="Mensaje"
-            value={formData.mensaje}
-            onChange={manejarCambio}
-          />
+            <textarea
+              name="mensaje"
+              placeholder="Mensaje"
+              value={formData.mensaje}
+              onChange={manejarCambio}
+            />
 
-          <button type="submit">Enviar</button>
-          {error && <p className="error">{error}</p>}
-        </form>
+            <button type="submit">Enviar</button>
 
-        <button onClick={() => setDarkMode(!darkMode)}>
-  {darkMode ? "Modo Claro ☀️" : "Modo Oscuro 🌙"}
-</button>
-      
+            {error && <p className="error">{error}</p>}
+          </form>
 
-      {enviado && <p>✅ Mensaje enviado</p>}
+          {enviado && <p>Mensaje enviado ✔</p>}
+        </section>
 
-      <section className="about">
-  <h2>Sobre mí</h2>
-  <p>
-    Soy estudiante y desarrollador en formación apasionado por la tecnología.
-    Actualmente estoy aprendiendo React, JavaScript y desarrollo web moderno.
-  </p>
+        <section className="about">
+          <h2>Sobre mí</h2>
+          <p>
+            Soy desarrollador en formación apasionado por crear interfaces limpias y funcionales.
+          </p>
+        </section>
 
-  <div className="skills">
-    <span>HTML</span>
-    <span>CSS</span>
-    <span>JavaScript</span>
-    <span>React</span>
-  </div>
-</section>
-
+      </div>
     </div>
-  </div>
-)
-} // 
-export default App //
+  )
+}
 
+export default App
