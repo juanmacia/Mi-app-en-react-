@@ -1,119 +1,86 @@
-import { useState, useEffect } from "react"
-import emailjs from "@emailjs/browser"
+import { useState } from "react"
 import "./App.css"
 
 function App() {
-  const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
-
-  const [formData, setFormData] = useState({
-    nombre: "",
-    email: "",
-    mensaje: ""
-  })
-
-  const [enviado, setEnviado] = useState(false)
-  const [error, setError] = useState("")
-
-  useEffect(() => {
-    if (enviado) {
-      const timer = setTimeout(() => {
-        setEnviado(false)
-      }, 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [enviado])
-
-  const manejarCambio = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const manejarEnvio = (e) => {
-    e.preventDefault()
-
-    if (!formData.nombre || !formData.email || !formData.mensaje) {
-      setError("Todos los campos son obligatorios")
-      return
-    }
-
-    setError("")
-
-    emailjs.send(
-      "service_dxmvioc",
-      "template_40eclkc",
-      formData,
-      "ZUQ8dK-sL2cC2z8Gz"
-    )
-    .then(() => {
-      setEnviado(true)
-      setFormData({ nombre: "", email: "", mensaje: "" })
-    })
-    .catch(() => {
-      setError("Error al enviar el mensaje")
-    })
-  }
 
   return (
     <div className={`app ${darkMode ? "dark" : ""}`}>
-      <div className="card">
-
-        <section className="hero">
-          <h1>Juan Macías</h1>
-          <p>Frontend Developer en formación</p>
-
-          <button onClick={() => setMostrarFormulario(!mostrarFormulario)}>
-            Contactar
-          </button>
-
+      
+      {/* NAVBAR */}
+      <nav className="navbar">
+        <h2 className="logo">Juan Macias</h2>
+        <div className="nav-links">
+          <a href="#about">About</a>
+          <a href="#projects">Proyectos</a>
+          <a href="#contact">Contacto</a>
           <button onClick={() => setDarkMode(!darkMode)}>
-            {darkMode ? "Light ☀️" : "Dark 🌙"}
+            {darkMode ? "☀" : "🌙"}
           </button>
-        </section>
+        </div>
+      </nav>
 
-        <section className={`formulario ${mostrarFormulario ? "activo" : ""}`}>
-          <form onSubmit={manejarEnvio}>
-            <input
-              type="text"
-              name="nombre"
-              placeholder="Nombre"
-              value={formData.nombre}
-              onChange={manejarCambio}
-            />
+      {/* HERO */}
+      <section className="hero">
+        <h1>Juan Macias</h1>
+        <p>Frontend Developer</p>
+        <span>Construyendo interfaces limpias y funcionales.</span>
+      </section>
+      <a href="/cv.pdf" download className="cv-btn">
+  Descargar CV
+</a>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={manejarCambio}
-            />
 
-            <textarea
-              name="mensaje"
-              placeholder="Mensaje"
-              value={formData.mensaje}
-              onChange={manejarCambio}
-            />
+      {/* ABOUT */}
+      <section id="about" className="about">
+        <h2>About</h2>
+        <p>
+          Soy estudiante apasionado por el desarrollo web y la electrónica.
+          Me enfoco en crear interfaces limpias, funcionales y bien estructuradas.
+          Actualmente trabajo con React y desarrollo proyectos con Arduino.
+        </p>
 
-            <button type="submit">Enviar</button>
+        <div className="skills">
+          <span>React</span>
+          <span>JavaScript</span>
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>Git</span>
+          <span>Arduino</span>
+        </div>
+      </section>
 
-            {error && <p className="error">{error}</p>}
-          </form>
+      {/* PROYECTOS */}
+      <section id="projects" className="projects">
+        <h2>Proyectos</h2>
 
-          {enviado && <p>Mensaje enviado ✔</p>}
-        </section>
+        <div className="project-card">
+          <h3>Portfolio React</h3>
+          <p>Sitio personal desarrollado con React y modo oscuro.</p>
+          <a href="https://github.com/TUUSUARIO" target="_blank">
+            Ver código
+          </a>
+        </div>
 
-        <section className="about">
-          <h2>Sobre mí</h2>
-          <p>
-            Soy desarrollador en formación apasionado por crear interfaces limpias y funcionales.
-          </p>
-        </section>
+        <div className="project-card">
+          <h3>Proyecto Arduino</h3>
+          <p>Sistema electrónico con simulación en Proteus.</p>
+        </div>
+      </section>
 
-      </div>
+      {/* CONTACTO */}
+      <section id="contact" className="contact">
+        <h2>Contacto</h2>
+        <p>Puedes escribirme directamente desde el formulario.</p>
+
+        <form className="contact-form">
+          <input type="text" placeholder="Tu nombre" required />
+          <input type="email" placeholder="Tu correo" required />
+          <textarea placeholder="Tu mensaje" rows="5" required></textarea>
+          <button type="submit">Enviar mensaje</button>
+        </form>
+      </section>
+
     </div>
   )
 }
