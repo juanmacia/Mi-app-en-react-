@@ -1,3 +1,5 @@
+
+/* BASE */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -5,38 +7,29 @@ body {
   color: #111;
   transition: background 0.3s ease, color 0.3s ease;
 }
-.app.dark {
-  background: linear-gradient(to bottom, #111, #1a1a1a);
-  color: #f5f5f5;
-}
-html {
-  scroll-behavior: smooth;
-}
 
 html {
   scroll-behavior: smooth;
 }
 
+section {
+  padding: 100px 80px;
+}
 
 /* NAVBAR */
-
 .navbar {
   position: fixed;
-  width: 100%;
   top: 0;
   left: 0;
-  padding: 20px 60px;
+  right: 0;
+  padding: 20px 40px;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.7);
 }
-
-.app.dark .navbar {
-  background: rgba(20, 20, 20, 0.7);
-}
-
 .nav-links a {
   margin-left: 30px;
   text-decoration: none;
@@ -48,8 +41,8 @@ html {
 .nav-links a:hover {
   opacity: 0.5;
 }
-/* HERO */
 
+/* HERO */
 .hero {
   min-height: 90vh;
   display: flex;
@@ -75,8 +68,25 @@ html {
   font-size: 16px;
   opacity: 0.6;
 }
-/* ABOUT */
 
+/* CV BUTTON */
+.cv-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 18px;
+  border: 1px solid #111;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #111;
+  transition: 0.3s;
+}
+
+.cv-btn:hover {
+  background: #111;
+  color: white;
+}
+
+/* ABOUT */
 .about {
   padding: 100px 40px;
   max-width: 800px;
@@ -104,16 +114,34 @@ html {
   font-size: 13px;
 }
 
-.app.dark .skills span {
-  border: 1px solid #555;
+/* PROYECTOS */
+.projects {
+  padding: 80px 20px;
+  text-align: center;
 }
 
-/* CONTACT */
-
-.contact {
-  max-width: 800px;
+.project-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 30px;
+  margin: 20px auto;
+  max-width: 500px;
+  transition: 0.3s;
 }
 
+.project-card:hover {
+  transform: translateY(-8px);
+}
+
+.project-card a {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+/* CONTACTO */
 .contact {
   max-width: 600px;
   margin: 0 auto;
@@ -159,46 +187,27 @@ html {
 .contact-form button:hover {
   background: #111;
   color: white;
-}.contact {
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-.projects {
-  padding: 80px 20px;
-  text-align: center;
+/* ================================
+   MODO OSCURO
+   ================================ */
+.app.dark {
+  background: linear-gradient(to bottom, #111, #1a1a1a);
+  color: #f5f5f5;
 }
 
-.project-card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 30px;
-  margin: 20px auto;
-  max-width: 500px;
-  transition: 0.3s;
+.app.dark .navbar {
+  background: rgba(20, 20, 20, 0.7);
 }
 
-.project-card:hover {
-  transform: translateY(-8px);
+.app.dark .skills span {
+  border-color: #555;
 }
 
 .app.dark .project-card {
   background: rgba(255, 255, 255, 0.05);
-}
-.project-card a {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-}
-
-.app.dark .project-card {
   border: 1px solid #444;
-}
-
-section {
-  padding: 100px 80px;
 }
 
 .app.dark .contact-form input,
@@ -221,21 +230,6 @@ section {
   background: white;
   color: black;
 }
-.cv-btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 18px;
-  border: 1px solid #111;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #111;
-  transition: 0.3s;
-}
-
-.cv-btn:hover {
-  background: #111;
-  color: white;
-}
 
 .app.dark .cv-btn {
   border: 1px solid white;
@@ -245,4 +239,22 @@ section {
 .app.dark .cv-btn:hover {
   background: white;
   color: black;
+}
+.nav-links button {
+  margin-left: 30px;
+  background: transparent;
+  border: 1px solid #111;
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.app.dark .nav-links button {
+  border-color: white;
+  color: white;
+}
+.cv-btn {
+  margin-left: 80px;
 }
