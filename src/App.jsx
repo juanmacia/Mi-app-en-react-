@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "./App.css"
+import emailjs from "@emailjs/browser"
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
@@ -73,12 +74,25 @@ function App() {
         <h2>Contacto</h2>
         <p>Puedes escribirme directamente desde el formulario.</p>
 
-        <form className="contact-form">
-          <input type="text" placeholder="Tu nombre" required />
-          <input type="email" placeholder="Tu correo" required />
-          <textarea placeholder="Tu mensaje" rows="5" required></textarea>
-          <button type="submit">Enviar mensaje</button>
-        </form>
+        <form className="contact-form" onSubmit={(e) => {
+  e.preventDefault()
+  emailjs.sendForm(
+    "service_dxmvioc",
+    "template_40eclkc",
+    e.target,
+    "ZUQ8dK-sL2cC2z8Gz"
+  ).then(() => {
+    alert("¡Mensaje enviado!")
+    e.target.reset()
+  }).catch((error) => {
+  alert("Error: " + JSON.stringify(error))
+})
+}}>
+  <input type="text" name="nombre" placeholder="Tu nombre" required />
+  <input type="email" name="email" placeholder="Tu correo" required />
+  <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+  <button type="submit">Enviar mensaje</button>
+</form>
       </section>
 
     </div>
