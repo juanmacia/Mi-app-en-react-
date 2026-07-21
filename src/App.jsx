@@ -1,13 +1,53 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
 import emailjs from "@emailjs/browser"
 
+// Lee la preferencia inicial: primero lo guardado, si no la del sistema operativo.
+function getInitialDarkMode() {
+  const saved = localStorage.getItem("darkMode")
+  if (saved !== null) return saved === "true"
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+}
+
 function App() {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(getInitialDarkMode)
+  const [sending, setSending] = useState(false)
+  const [status, setStatus] = useState(null) // { type: "ok" | "error", msg }
+
+  // Persiste la elección del usuario.
+  useEffect(() => {
+    localStorage.setItem("darkMode", String(darkMode))
+  }, [darkMode])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target
+    setSending(true)
+    setStatus(null)
+
+    emailjs
+      .sendForm(
+        "service_dxmvioc",
+        "template_40eclkc",
+        form,
+        "ZUQ8dK-sL2cC2z8Gz"
+      )
+      .then(() => {
+        setStatus({ type: "ok", msg: "¡Mensaje enviado! Te responderé pronto." })
+        form.reset()
+      })
+      .catch(() => {
+        setStatus({
+          type: "error",
+          msg: "No se pudo enviar el mensaje. Intenta de nuevo o escríbeme por otro medio.",
+        })
+      })
+      .finally(() => setSending(false))
+  }
 
   return (
     <div className={`app ${darkMode ? "dark" : ""}`}>
-      
+
       {/* NAVBAR */}
       <nav className="navbar">
         <h2 className="logo">Juan Macias</h2>
@@ -15,7 +55,10 @@ function App() {
           <a href="#about">About</a>
           <a href="#projects">Proyectos</a>
           <a href="#contact">Contacto</a>
-          <button onClick={() => setDarkMode(!darkMode)}>
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            aria-label={darkMode ? "Activar modo claro" : "Activar modo oscuro"}
+          >
             {darkMode ? "☀" : "🌙"}
           </button>
         </div>
@@ -26,11 +69,12 @@ function App() {
         <h1>Juan Macias</h1>
         <p>Frontend Developer</p>
         <span>Construyendo interfaces limpias y funcionales.</span>
+        <div className="hero-actions">
+          <a href="/cv.pdf" download="CV-Juan-Macias.pdf" className="cv-btn">
+            Descargar CV
+          </a>
+        </div>
       </section>
-      <a href="/cv.pdf" download className="cv-btn">
-  Descargar CV
-</a>
-
 
       {/* ABOUT */}
       <section id="about" className="about">
@@ -58,7 +102,11 @@ function App() {
         <div className="project-card">
           <h3>Portfolio React</h3>
           <p>Sitio personal desarrollado con React y modo oscuro.</p>
-          <a href="https://github.com/TUUSUARIO" target="_blank">
+          <a
+            href="https://github.com/juanmacia/Mi-app-en-react-"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Ver código
           </a>
         </div>
@@ -74,25 +122,19 @@ function App() {
         <h2>Contacto</h2>
         <p>Puedes escribirme directamente desde el formulario.</p>
 
-        <form className="contact-form" onSubmit={(e) => {
-  e.preventDefault()
-  emailjs.sendForm(
-    "service_dxmvioc",
-    "template_40eclkc",
-    e.target,
-    "ZUQ8dK-sL2cC2z8Gz"
-  ).then(() => {
-    alert("¡Mensaje enviado!")
-    e.target.reset()
-  }).catch((error) => {
-  alert("Error: " + JSON.stringify(error))
-})
-}}>
-  <input type="text" name="nombre" placeholder="Tu nombre" required />
-  <input type="email" name="email" placeholder="Tu correo" required />
-  <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
-  <button type="submit">Enviar mensaje</button>
-</form>
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <input type="text" name="nombre" placeholder="Tu nombre" required />
+          <input type="email" name="email" placeholder="Tu correo" required />
+          <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+          <button type="submit" disabled={sending}>
+            {sending ? "Enviando..." : "Enviar mensaje"}
+          </button>
+          {status && (
+            <p className={`form-status ${status.type}`} role="status">
+              {status.msg}
+            </p>
+          )}
+        </form>
       </section>
 
     </div>
