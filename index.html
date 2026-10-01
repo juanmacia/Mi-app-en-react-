@@ -1,15 +1,46 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portafolio de Juan Macias — Frontend Developer. Proyectos con React y Arduino." />
+    <title>Juan Macias — QA Analyst</title>
+    <meta name="description" content="QA Analyst especializado en automatización de pruebas, revisión de código y reportes de calidad con Allure y CI." />
     <meta name="author" content="Juan Macias" />
-    <meta property="og:title" content="Juan Macias — Frontend Developer" />
-    <meta property="og:description" content="Portafolio personal: proyectos con React y electrónica." />
+    <meta name="theme-color" content="#111214" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://mi-app-en-react.vercel.app/" />
+
+    <!-- Open Graph (LinkedIn, Facebook, WhatsApp) -->
     <meta property="og:type" content="website" />
-    <title>Juan Macias — Frontend Developer</title>
+    <meta property="og:site_name" content="Juan Macias" />
+    <meta property="og:url" content="https://mi-app-en-react.vercel.app/" />
+    <meta property="og:title" content="Juan Macias — QA Analyst" />
+    <meta property="og:description" content="QA Analyst especializado en automatización de pruebas, revisión de código y reportes de calidad con Allure y CI." />
+    <meta property="og:image" content="https://mi-app-en-react.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Juan Macias — QA Analyst · Test Automation" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Juan Macias — QA Analyst" />
+    <meta name="twitter:description" content="QA Analyst especializado en automatización de pruebas, revisión de código y reportes de calidad con Allure y CI." />
+    <meta name="twitter:image" content="https://mi-app-en-react.vercel.app/og-image.png" />
+    <meta name="twitter:image:alt" content="Juan Macias — QA Analyst · Test Automation" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Aplica el tema guardado antes de pintar para evitar el parpadeo. -->
+    <script>
+      try {
+        var saved = localStorage.getItem("theme")
+        if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
